@@ -15,7 +15,25 @@ jobs:
     - run: git fetch --prune --unshallow
     - name: generate manifest.json
       run: |
-        echo '{"name": "test"}' > manifest.json
+        cat >manifest.json <<EOF
+        {
+          "SchemaVersion": "1.0",
+          "Metadata": {
+            "Name": "rpaasv2",
+            "Version": "0.33.1"
+          },
+          "UrlPerPlatform": {
+            "darwin/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Darwin_x86_64.tar.gz",
+            "darwin/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Darwin_arm64.tar.gz",
+            "linux/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_x86_64.tar.gz",
+            "linux/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_arm64.tar.gz",
+            "linux/386": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_i386.tar.gz",
+            "windows/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Windows_x86_64.tar.gz"
+            "windows/386": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Windows_i386.tar.gz",
+          }
+        }
+        EOF
+
     - uses: actions/setup-go@v2
       with:
         go-version: 1.18
