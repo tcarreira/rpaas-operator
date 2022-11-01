@@ -13,23 +13,27 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: git fetch --prune --unshallow
+    - name: Set VERSION env
+      run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
     - name: generate manifest.json
+      env:
+        VERSION: ${{ env.VERSION }}
       run: |
         cat >manifest.json <<EOF
         {
           "SchemaVersion": "1.0",
           "Metadata": {
             "Name": "rpaasv2",
-            "Version": "0.33.1"
+            "Version": "${VERSION}"
           },
           "UrlPerPlatform": {
-            "darwin/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Darwin_x86_64.tar.gz",
-            "darwin/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Darwin_arm64.tar.gz",
-            "linux/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_x86_64.tar.gz",
-            "linux/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_arm64.tar.gz",
-            "linux/386": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Linux_i386.tar.gz",
-            "windows/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Windows_x86_64.tar.gz"
-            "windows/386": "https://github.com/tsuru/rpaas-operator/releases/download/v0.33.1/rpaasv2_0.33.1_Windows_i386.tar.gz",
+            "darwin/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Darwin_x86_64.tar.gz",
+            "darwin/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Darwin_arm64.tar.gz",
+            "linux/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Linux_x86_64.tar.gz",
+            "linux/arm64": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Linux_arm64.tar.gz",
+            "linux/386": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Linux_i386.tar.gz",
+            "windows/amd64": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Windows_x86_64.tar.gz"
+            "windows/386": "https://github.com/tsuru/rpaas-operator/releases/download/v${VERSION}/rpaasv2_${VERSION}_Windows_i386.tar.gz",
           }
         }
         EOF
