@@ -32,6 +32,6 @@ archives:
 checksum:
   name_template: "checksums.txt"
 
-# release:
-#   extra_files:
-#     - manifest.json
+release:
+  extra_files:
+    - glob: ./manifest.json
