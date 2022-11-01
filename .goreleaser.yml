@@ -9,16 +9,8 @@ builds:
   goos:
   - darwin
   - linux
-  - windows
   goarch:
   - amd64
-  - 386
-  - arm64
-  ignore:
-  - goos: darwin
-    goarch: 386
-  - goos: windows
-    goarch: arm64
 
 archives:
 - id: rpaasv2
@@ -39,3 +31,7 @@ archives:
 
 checksum:
   name_template: "checksums.txt"
+
+# release:
+#   extra_files:
+#     - manifest.json
